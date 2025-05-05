@@ -1,0 +1,22 @@
+:root {
+    --header-height: 72px;
+    /*--bg: linear-gradient(135deg, #796fd7, #0f172a);*/
+    --bg: #0f172a;
+    --text: #f8fafc;
+    --accent: #6d5dfc;
+    --accent-hover: #796fd7;
+    --glass: rgba(255, 255, 255, 0.03);
+    --gradient-primary: linear-gradient(135deg, #0f172a, #796fd7);
+    --gradient-secondary: linear-gradient(45deg, #6d5dfc, #48b2ff);
+    --border: rgba(109, 93, 252, 0.15);
+    --border-radius: 1.5rem;
+    --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --primary: rgb(22, 33, 61);
+    --secondary: rgba(4, 3, 12, 0.86);
+    --text-dark: #1f2937;
+    --text-muted: #6b7280;
+
+    --success: #0b80b7;
+    --error: #dc2f2f;
+}

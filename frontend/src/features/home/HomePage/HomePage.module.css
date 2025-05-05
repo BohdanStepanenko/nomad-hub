@@ -1,0 +1,20 @@
+.container {
+    padding-top: var(--header-height);
+    display: flex;
+    flex-direction: column;
+    gap: 8rem;
+}
+
+@media (max-width: 768px) {
+    .container {
+        gap: 5rem;
+        padding: 0 1rem 4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        gap: 4rem;
+        padding: 0 0.5rem 3rem;
+    }
+}

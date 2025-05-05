@@ -1,0 +1,197 @@
+.container {
+    min-height: 100vh;
+    padding: 4rem 2rem;
+}
+
+.content {
+    padding: 6rem 2rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.pageTitle {
+    text-align: left;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 2rem;
+}
+
+.formsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.formCell {
+    background: var(--primary);
+    backdrop-filter: blur(12px);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    border: 1px solid rgba(109, 93, 252, 0.15);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.personalInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Self Assessment */
+.ratingSection {
+    margin: 1.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.ratingLabel {
+    font-size: 1rem;
+}
+
+.stars {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.star {
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filledStar {
+    color: #f5a623;
+}
+
+.emptyStar {
+    color: var(--text-muted);
+}
+
+.assessmentActions {
+    margin-top: 0.5rem;
+    text-align: right;
+}
+
+.addButton {
+    width: auto;
+    margin-bottom: 1rem;
+}
+
+.removeButton {
+    background: var(--error);
+    color: var(--text);
+    padding: 0.5rem 1rem;
+    border-radius: var(--border-radius);
+    width: auto;
+}
+
+/* Assessment block */
+.assessmentBlock {
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+    background: var(--glass);
+}
+
+.assessmentDivider {
+    margin: 1rem 0;
+    border: none;
+    border-bottom: 1px solid var(--border);
+}
+
+.avatarSection {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 3px solid #6d5dfc;
+}
+
+.avatarInput {
+    display: none;
+}
+
+.avatarLabel {
+    display: block;
+    color: #6d5dfc;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.avatarLabel:hover {
+    opacity: 0.8;
+}
+
+.form {
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.formDescription {
+    font-size: 0.9rem;
+    color: #94a3b8;
+    margin: 2rem 0;
+}
+
+.passwordInputContainer {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.passwordToggleIcon {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    cursor: pointer;
+}
+
+.ratingSection {
+    margin: 1.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.ratingLabel {
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.stars {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.star {
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.filledStar {
+    color: #f5a623;
+}
+
+.emptyStar {
+    color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+    .content {
+        padding: 6rem 1rem 2rem;
+    }
+
+    .formCell {
+        padding: 1.5rem;
+    }
+}

@@ -1,0 +1,87 @@
+.buttonContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.submitBtn {
+    min-height: 48px;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 1.5rem 0;
+    color: var(--text-muted);
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border);
+}
+
+.divider span {
+    padding: 0 1rem;
+    font-size: 0.9rem;
+}
+
+.googleBtn {
+    width: 100%;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.2s ease;
+}
+
+.googleBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.googleIcon {
+    width: 20px;
+    height: 20px;
+}
+
+.links {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    text-align: center;
+    font-size: 0.95rem;
+}
+
+.links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.links a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
+
+.passwordInputContainer {
+    position: relative;
+}
+
+.passwordInput {
+    padding-right: 40px;
+}
+
+.passwordToggleIcon {
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    cursor: pointer;
+}

@@ -1,0 +1,115 @@
+.features {
+    padding: 8rem 0;
+}
+
+.title {
+    text-align: center;
+    font-size: 2.75rem;
+    margin-bottom: 5rem;
+    background: linear-gradient(45deg, #6d5dfc 0%, #48b2ff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(109, 93, 252, 0.15);
+    padding: 2.5rem;
+    border-radius: var(--border-radius);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 32px rgba(109, 93, 252, 0.15);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+            45deg,
+            transparent,
+            rgba(109, 93, 252, 0.05),
+            transparent
+    );
+    transform: rotate(45deg);
+}
+
+.icon {
+    font-size: 2.75rem;
+    color: #6d5dfc;
+    margin-bottom: 1.5rem;
+    filter: drop-shadow(0 4px 12px rgba(109, 93, 252, 0.2));
+}
+
+.list {
+    list-style: none;
+    margin-top: 2rem;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.list li {
+    padding: 0.75rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.05rem;
+    color: #94a3b8;
+}
+
+.list li::before {
+    content: "▹";
+    color: #6d5dfc;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .features {
+        padding: 6rem 0;
+    }
+
+    .title {
+        font-size: 2.25rem;
+        margin-bottom: 4rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+        padding: 0 1.5rem;
+    }
+
+    .card {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .list li {
+        font-size: 1rem;
+    }
+}
