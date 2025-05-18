@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
             FirstAdminSeeder::class,
             CountriesSeeder::class,
             VisasSeeder::class,
+            FirstUserSeeder::class,
+            CoworkingSpacesSeeder::class,
+            CoworkingReviewsSeeder::class,
         ]);
     }
 }

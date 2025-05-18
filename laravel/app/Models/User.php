@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
@@ -51,5 +52,10 @@ class User extends Authenticatable
     public function getAvatarUrlAttribute($value): ?string
     {
         return $value ? config('filesystems.disks.s3.url') . $value : null;
+    }
+
+    public function coworkingReviews(): HasMany
+    {
+        return $this->hasMany(CoworkingReview::class);
     }
 }

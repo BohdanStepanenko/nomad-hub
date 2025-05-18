@@ -5,6 +5,8 @@ use App\Http\Controllers\Auth\DiscordAuthController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\CountryController;
+use App\Http\Controllers\CoworkingReviewController;
+use App\Http\Controllers\CoworkingSpaceController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\VisaController;
 use App\Models\Role;
@@ -45,9 +47,12 @@ Route::middleware('auth:api')->group(function () {
 
     Route::resource('countries', CountryController::class)->only(['index', 'show']);
     Route::resource('visas', VisaController::class)->only(['index', 'show']);
+    Route::resource('coworking-spaces', CoworkingSpaceController::class)->only(['index', 'show']);
+    Route::resource('coworking-reviews', CoworkingReviewController::class);
 
     Route::middleware(['role:' . implode(',', [Role::ADMIN])])->group(function () {
         Route::resource('countries', CountryController::class)->except(['index', 'show']);
         Route::resource('visas', VisaController::class)->except(['index', 'show']);
+        Route::resource('coworking-spaces', CoworkingSpaceController::class)->except(['index', 'show']);
     });
 });
