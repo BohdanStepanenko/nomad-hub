@@ -14,11 +14,15 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesSeeder::class,
             FirstAdminSeeder::class,
+            FirstUserSeeder::class,
+
             CountriesSeeder::class,
             VisasSeeder::class,
-            FirstUserSeeder::class,
+
             CoworkingSpacesSeeder::class,
             CoworkingReviewsSeeder::class,
+
+            ForumTopicsSeeder::class,
         ]);
     }
 }
