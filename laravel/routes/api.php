@@ -4,7 +4,15 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\DiscordAuthController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\PasswordResetController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\CoworkingReviewController;
+use App\Http\Controllers\CoworkingSpaceController;
+use App\Http\Controllers\ForumCommentController;
+use App\Http\Controllers\ForumPostController;
+use App\Http\Controllers\ForumTopicController;
 use App\Http\Controllers\User\ProfileController;
+use App\Http\Controllers\VisaController;
+use App\Models\Role;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
@@ -38,5 +46,84 @@ Route::middleware('auth:api')->group(function () {
         Route::put('/email', [ProfileController::class, 'updateEmail']);
         Route::put('/password', [ProfileController::class, 'updatePassword']);
         Route::post('/logout', [ProfileController::class, 'logout']);
+    });
+
+    // Countries
+    Route::prefix('countries')->group(function () {
+        Route::get('/', [CountryController::class, 'index']);
+        Route::get('/{country}', [CountryController::class, 'show']);
+    });
+
+    // Visas
+    Route::prefix('visas')->group(function () {
+        Route::get('/', [VisaController::class, 'index']);
+        Route::get('/{visa}', [VisaController::class, 'show']);
+    });
+
+    // Coworking Spaces
+    Route::prefix('coworking-spaces')->group(function () {
+        Route::get('/', [CoworkingSpaceController::class, 'index']);
+        Route::get('/{coworkingSpace}', [CoworkingSpaceController::class, 'show']);
+    });
+
+    // Coworking Reviews
+    Route::prefix('coworking-reviews')->group(function () {
+        Route::get('/', [CoworkingReviewController::class, 'index']);
+        Route::post('/', [CoworkingReviewController::class, 'store']);
+        Route::get('/{coworkingReview}', [CoworkingReviewController::class, 'show']);
+        Route::put('/{coworkingReview}', [CoworkingReviewController::class, 'update']);
+        Route::delete('/{coworkingReview}', [CoworkingReviewController::class, 'destroy']);
+    });
+
+    // Forum Topics
+    Route::prefix('forum-topics')->group(function () {
+        Route::get('/', [ForumTopicController::class, 'index']);
+        Route::post('/', [ForumTopicController::class, 'store']);
+        Route::get('/{forumTopic}', [ForumTopicController::class, 'show']);
+        Route::put('/{forumTopic}', [ForumTopicController::class, 'update']);
+        Route::delete('/{forumTopic}', [ForumTopicController::class, 'destroy']);
+    });
+
+    // Forum Posts
+    Route::prefix('forum-posts')->group(function () {
+        Route::get('/', [ForumPostController::class, 'index']);
+        Route::post('/', [ForumPostController::class, 'store']);
+        Route::get('/{forumPost}', [ForumPostController::class, 'show']);
+        Route::put('/{forumPost}', [ForumPostController::class, 'update']);
+        Route::delete('/{forumPost}', [ForumPostController::class, 'destroy']);
+    });
+
+    // Forum Comments
+    Route::prefix('forum-comments')->group(function () {
+        Route::get('/', [ForumCommentController::class, 'index']);
+        Route::post('/', [ForumCommentController::class, 'store']);
+        Route::get('/{forumComment}', [ForumCommentController::class, 'show']);
+        Route::put('/{forumComment}', [ForumCommentController::class, 'update']);
+        Route::delete('/{forumComment}', [ForumCommentController::class, 'destroy']);
+    });
+
+    // Admin routes
+    Route::middleware(['role:' . implode(',', [Role::ADMIN])])->group(function () {
+        Route::prefix('countries')->group(function () {
+            Route::post('/', [CountryController::class, 'store']);
+            Route::put('/{country}', [CountryController::class, 'update']);
+            Route::delete('/{country}', [CountryController::class, 'destroy']);
+        });
+
+        Route::prefix('visas')->group(function () {
+            Route::post('/', [VisaController::class, 'store']);
+            Route::put('/{visa}', [VisaController::class, 'update']);
+            Route::delete('/{visa}', [VisaController::class, 'destroy']);
+        });
+
+        Route::prefix('coworking-spaces')->group(function () {
+            Route::post('/', [CoworkingSpaceController::class, 'store']);
+            Route::put('/{coworkingSpace}', [CoworkingSpaceController::class, 'update']);
+            Route::delete('/{coworkingSpace}', [CoworkingSpaceController::class, 'destroy']);
+        });
+
+        Route::prefix('forum-topics')->group(function () {
+            Route::put('/{forumTopic}/lock', [ForumTopicController::class, 'switchLock']);
+        });
     });
 });

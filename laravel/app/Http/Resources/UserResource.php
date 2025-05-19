@@ -21,6 +21,7 @@ class UserResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'name' => $this->resource->name,
+            'role' => $this->resource->getRoleNames(),
             'email' => $this->resource->email,
             'avatar' => $this->resource->avatar,
             'avatarUrl' => $this->resource->getAvatarUrlAttribute($this->resource->avatar),

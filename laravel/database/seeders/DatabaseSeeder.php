@@ -14,6 +14,17 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RolesSeeder::class,
             FirstAdminSeeder::class,
+            FirstUserSeeder::class,
+
+            CountriesSeeder::class,
+            VisasSeeder::class,
+
+            CoworkingSpacesSeeder::class,
+            CoworkingReviewsSeeder::class,
+
+            ForumTopicsSeeder::class,
+            ForumPostsSeeder::class,
+            ForumCommentsSeeder::class,
         ]);
     }
 }
