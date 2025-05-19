@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class FirstUserSeeder extends Seeder
 {
-    const USER_NAME = 'First Admin';
+    const USER_NAME = 'First User';
 
     const USER_EMAIL = 'user@email.com';
 
