@@ -29,8 +29,8 @@ class ForumTopic extends Model
         return $this->belongsTo(User::class);
     }
 
-//    public function posts(): HasMany
-//    {
-//        return $this->hasMany(ForumPost::class, 'topic_id');
-//    }
+    public function posts(): HasMany
+    {
+        return $this->hasMany(ForumPost::class, 'topic_id');
+    }
 }
