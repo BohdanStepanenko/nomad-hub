@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             CoworkingReviewsSeeder::class,
 
             ForumTopicsSeeder::class,
+            ForumPostsSeeder::class,
+            ForumCommentsSeeder::class,
         ]);
     }
 }
