@@ -25,6 +25,8 @@ class ForumTopicResource extends JsonResource
             'description' => $this->resource->description,
             'user' => UserResource::make($this->resource->user),
             'is_locked' => $this->resource->is_locked,
+            'created_at' => $this->resource->created_at,
+            'updated_at' => $this->resource->updated_at,
         ];
     }
 }
