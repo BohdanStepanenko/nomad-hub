@@ -2,12 +2,8 @@
 
 namespace App\Providers;
 
-use App\Models\Recommendation;
-use App\Models\TestResult;
-use App\Models\UserSkill;
-use App\Policies\User\RecommendationPolicy;
-use App\Policies\User\TestResultPolicy;
-use App\Policies\User\UserSkillPolicy;
+use App\Models\ForumTopic;
+use App\Policies\ForumTopicPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
 
@@ -19,9 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        UserSkill::class => UserSkillPolicy::class,
-        TestResult::class => TestResultPolicy::class,
-        Recommendation::class => RecommendationPolicy::class,
+        ForumTopic::class => ForumTopicPolicy::class,
     ];
 
     /**
