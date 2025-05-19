@@ -7,6 +7,8 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CoworkingReviewController;
 use App\Http\Controllers\CoworkingSpaceController;
+use App\Http\Controllers\ForumCommentController;
+use App\Http\Controllers\ForumPostController;
 use App\Http\Controllers\ForumTopicController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\VisaController;
@@ -80,6 +82,24 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/{forumTopic}', [ForumTopicController::class, 'show']);
         Route::put('/{forumTopic}', [ForumTopicController::class, 'update']);
         Route::delete('/{forumTopic}', [ForumTopicController::class, 'destroy']);
+    });
+
+    // Forum Posts
+    Route::prefix('forum-posts')->group(function () {
+        Route::get('/', [ForumPostController::class, 'index']);
+        Route::post('/', [ForumPostController::class, 'store']);
+        Route::get('/{forumPost}', [ForumPostController::class, 'show']);
+        Route::put('/{forumPost}', [ForumPostController::class, 'update']);
+        Route::delete('/{forumPost}', [ForumPostController::class, 'destroy']);
+    });
+
+    // Forum Comments
+    Route::prefix('forum-comments')->group(function () {
+        Route::get('/', [ForumCommentController::class, 'index']);
+        Route::post('/', [ForumCommentController::class, 'store']);
+        Route::get('/{forumComment}', [ForumCommentController::class, 'show']);
+        Route::put('/{forumComment}', [ForumCommentController::class, 'update']);
+        Route::delete('/{forumComment}', [ForumCommentController::class, 'destroy']);
     });
 
     // Admin routes
