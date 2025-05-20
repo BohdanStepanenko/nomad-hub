@@ -6,22 +6,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Country extends Model
+class Housing extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'name',
-        'code',
+        'description',
+        'address',
+        'price',
+        'created_at',
+        'updated_at',
     ];
 
-    public function visas(): HasMany
+    public function favoriteHousings(): HasMany
     {
-        return $this->hasMany(Visa::class);
-    }
-
-    public function taxInfos(): HasMany
-    {
-        return $this->hasMany(TaxInfo::class);
+        return $this->hasMany(FavoriteHousing::class);
     }
 }

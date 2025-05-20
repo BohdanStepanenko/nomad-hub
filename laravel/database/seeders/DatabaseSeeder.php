@@ -27,6 +27,9 @@ class DatabaseSeeder extends Seeder
             ForumCommentsSeeder::class,
 
             TaxInfosSeeder::class,
+
+            HousingsSeeder::class,
+            FavoriteHousingsSeeder::class,
         ]);
     }
 }
