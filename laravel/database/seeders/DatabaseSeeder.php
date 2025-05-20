@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
             ForumTopicsSeeder::class,
             ForumPostsSeeder::class,
             ForumCommentsSeeder::class,
+
+            TaxInfosSeeder::class,
         ]);
     }
 }

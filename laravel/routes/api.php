@@ -10,6 +10,7 @@ use App\Http\Controllers\CoworkingSpaceController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ForumPostController;
 use App\Http\Controllers\ForumTopicController;
+use App\Http\Controllers\TaxInfoController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\VisaController;
 use App\Models\Role;
@@ -102,6 +103,12 @@ Route::middleware('auth:api')->group(function () {
         Route::delete('/{forumComment}', [ForumCommentController::class, 'destroy']);
     });
 
+    // Tax Infos
+    Route::prefix('tax-infos')->group(function () {
+        Route::get('/', [TaxInfoController::class, 'index']);
+        Route::get('/{taxInfo}', [TaxInfoController::class, 'show']);
+    });
+
     // Admin routes
     Route::middleware(['role:' . implode(',', [Role::ADMIN])])->group(function () {
         Route::prefix('countries')->group(function () {
@@ -124,6 +131,12 @@ Route::middleware('auth:api')->group(function () {
 
         Route::prefix('forum-topics')->group(function () {
             Route::put('/{forumTopic}/lock', [ForumTopicController::class, 'switchLock']);
+        });
+
+        Route::prefix('tax-infos')->group(function () {
+            Route::post('/', [TaxInfoController::class, 'store']);
+            Route::put('/{taxInfo}', [TaxInfoController::class, 'update']);
+            Route::delete('/{taxInfo}', [TaxInfoController::class, 'destroy']);
         });
     });
 });
