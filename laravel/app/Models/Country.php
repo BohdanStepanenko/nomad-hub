@@ -19,4 +19,9 @@ class Country extends Model
     {
         return $this->hasMany(Visa::class);
     }
+
+    public function taxInfos(): HasMany
+    {
+        return $this->hasMany(TaxInfo::class);
+    }
 }

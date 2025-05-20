@@ -58,4 +58,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(CoworkingReview::class);
     }
+
+    public function favoriteHousings(): HasMany
+    {
+        return $this->hasMany(FavoriteHousing::class);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ForumPost extends Model
 {
@@ -26,5 +27,10 @@ class ForumPost extends Model
     public function forumTopic(): BelongsTo
     {
         return $this->belongsTo(ForumTopic::class);
+    }
+
+    public function forumComments(): HasMany
+    {
+        return $this->hasMany(ForumComment::class);
     }
 }
