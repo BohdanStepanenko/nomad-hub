@@ -2,10 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\FavoriteHousing;
 use App\Models\ForumComment;
 use App\Models\ForumPost;
 use App\Models\ForumTopic;
 use App\Models\TaxInfo;
+use App\Policies\FavoriteHousingPolicy;
 use App\Policies\ForumCommentPolicy;
 use App\Policies\ForumPostPolicy;
 use App\Policies\ForumTopicPolicy;
@@ -25,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
         ForumPost::class => ForumPostPolicy::class,
         ForumComment::class => ForumCommentPolicy::class,
         TaxInfo::class => TaxInfoPolicy::class,
+        FavoriteHousing::class => FavoriteHousingPolicy::class,
     ];
 
     /**
