@@ -5,9 +5,11 @@ namespace App\Providers;
 use App\Models\ForumComment;
 use App\Models\ForumPost;
 use App\Models\ForumTopic;
+use App\Models\TaxInfo;
 use App\Policies\ForumCommentPolicy;
 use App\Policies\ForumPostPolicy;
 use App\Policies\ForumTopicPolicy;
+use App\Policies\TaxInfoPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
 
@@ -22,6 +24,7 @@ class AuthServiceProvider extends ServiceProvider
         ForumTopic::class => ForumTopicPolicy::class,
         ForumPost::class => ForumPostPolicy::class,
         ForumComment::class => ForumCommentPolicy::class,
+        TaxInfo::class => TaxInfoPolicy::class,
     ];
 
     /**
