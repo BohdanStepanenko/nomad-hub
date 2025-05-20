@@ -7,9 +7,11 @@ use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\CoworkingReviewController;
 use App\Http\Controllers\CoworkingSpaceController;
+use App\Http\Controllers\FavoriteHousingController;
 use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ForumPostController;
 use App\Http\Controllers\ForumTopicController;
+use App\Http\Controllers\HousingController;
 use App\Http\Controllers\TaxInfoController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\VisaController;
@@ -109,6 +111,21 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/{taxInfo}', [TaxInfoController::class, 'show']);
     });
 
+    // Housings
+    Route::prefix('housings')->group(function () {
+        Route::get('/', [HousingController::class, 'index']);
+        Route::get('/{housing}', [HousingController::class, 'show']);
+    });
+
+    // Favorite Housings
+    Route::prefix('favorite-housings')->group(function () {
+        Route::get('/', [FavoriteHousingController::class, 'index']);
+        Route::post('/', [FavoriteHousingController::class, 'store']);
+        Route::get('/{favoriteHousing}', [FavoriteHousingController::class, 'show']);
+        Route::put('/{favoriteHousing}', [FavoriteHousingController::class, 'update']);
+        Route::delete('/{favoriteHousing}', [FavoriteHousingController::class, 'destroy']);
+    });
+
     // Admin routes
     Route::middleware(['role:' . implode(',', [Role::ADMIN])])->group(function () {
         Route::prefix('countries')->group(function () {
@@ -137,6 +154,12 @@ Route::middleware('auth:api')->group(function () {
             Route::post('/', [TaxInfoController::class, 'store']);
             Route::put('/{taxInfo}', [TaxInfoController::class, 'update']);
             Route::delete('/{taxInfo}', [TaxInfoController::class, 'destroy']);
+        });
+
+        Route::prefix('housings')->group(function () {
+            Route::post('/', [HousingController::class, 'store']);
+            Route::put('/{housing}', [HousingController::class, 'update']);
+            Route::delete('/{housing}', [HousingController::class, 'destroy']);
         });
     });
 });
