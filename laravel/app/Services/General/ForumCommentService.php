@@ -84,7 +84,7 @@ class ForumCommentService
         }
 
         return match ($sortBy) {
-            'forum_topic_id' => $query->orderBy('forum_topic_id', $sortDirection),
+            'forum_post_id' => $query->orderBy('forum_post_id', $sortDirection),
             'user_id' => $query->orderBy('user_id', $sortDirection),
             'content' => $query->orderBy('content', $sortDirection),
             'created_at' => $query->orderBy('created_at', $sortDirection),
