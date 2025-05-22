@@ -44,6 +44,7 @@ services:
       - ./laravel/bootstrap/cache:/var/www/html/laravel/bootstrap/cache
     depends_on:
       - db
+      - opensearch
     networks:
       - laravel_network
 
@@ -72,9 +73,32 @@ services:
     networks:
       - laravel_network
 
+  opensearch:
+    image: opensearchproject/opensearch:2.17.1
+    container_name: opensearch
+    environment:
+      - discovery.type=single-node
+      - OPENSEARCH_JAVA_OPTS=-Xms1g -Xmx1g
+      - DISABLE_SECURITY_PLUGIN=true
+      - cluster.routing.allocation.disk.threshold_enabled=false
+      - action.auto_create_index=true
+    ports:
+      - "9200:9200"
+      - "9600:9600"
+    volumes:
+      - opensearch-data:/usr/share/opensearch/data
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep -q '\"status\":\"green\"' || curl -s http://localhost:9200/_cluster/health | grep -q '\"status\":\"yellow\"'" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    networks:
+      - laravel_network
+
 volumes:
   mysql-data:
   test_mysql-data:
+  opensearch-data:
 
 networks:
   laravel_network:
