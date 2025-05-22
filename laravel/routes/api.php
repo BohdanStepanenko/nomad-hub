@@ -12,6 +12,7 @@ use App\Http\Controllers\ForumCommentController;
 use App\Http\Controllers\ForumPostController;
 use App\Http\Controllers\ForumTopicController;
 use App\Http\Controllers\HousingController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\TaxInfoController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\VisaController;
@@ -124,6 +125,12 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/{favoriteHousing}', [FavoriteHousingController::class, 'show']);
         Route::put('/{favoriteHousing}', [FavoriteHousingController::class, 'update']);
         Route::delete('/{favoriteHousing}', [FavoriteHousingController::class, 'destroy']);
+    });
+
+    // Search
+    Route::prefix('search')->group(function () {
+        Route::get('/', [SearchController::class, 'search']);
+        Route::get('/autocomplete', [SearchController::class, 'autocomplete']);
     });
 
     // Admin routes
