@@ -29,12 +29,16 @@ class HousingController extends Controller
     {
         $name = $request->post('name');
         $description = $request->post('description');
+        $countryId = $request->post('countryId');
+        $city = $request->post('city');
         $address = $request->post('address');
         $price = $request->post('price');
 
         return $this->success($this->housingService->store(
             $name,
             $description,
+            $countryId,
+            $city,
             $address,
             $price
         ), 201);
@@ -49,6 +53,8 @@ class HousingController extends Controller
     {
         $name = $request->post('name');
         $description = $request->post('description');
+        $countryId = $request->post('countryId');
+        $city = $request->post('city');
         $address = $request->post('address');
         $price = $request->post('price');
 
@@ -56,6 +62,8 @@ class HousingController extends Controller
             $housing,
             $name,
             $description,
+            $countryId,
+            $city,
             $address,
             $price
         ), 200);

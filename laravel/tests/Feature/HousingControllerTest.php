@@ -2,8 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Models\Country;
 use App\Models\Housing;
 use App\Models\User;
+use Database\Seeders\CountriesSeeder;
 use Database\Seeders\HousingsSeeder;
 use Database\Seeders\RolesSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -29,6 +31,7 @@ class HousingControllerTest extends TestCase
         Notification::fake();
 
         $this->seed(RolesSeeder::class);
+        $this->seed(CountriesSeeder::class);
         $this->seed(HousingsSeeder::class);
 
         $this->user = User::factory()->create();
@@ -36,6 +39,7 @@ class HousingControllerTest extends TestCase
         $this->admin->assignRole('Admin');
 
         $this->housing = Housing::first();
+        $this->country = Country::first();
     }
 
     public function testAuthorizedUserCanGetHousingsList(): void
@@ -104,12 +108,16 @@ class HousingControllerTest extends TestCase
         $description = fake()->sentence;
         $address = fake()->address;
         $price = fake()->randomFloat(2, 10, 200);
+        $city = fake()->city;
+        $countryId = $this->country->id;
 
         $input = [
             'name' => $name,
             'description' => $description,
             'address' => $address,
             'price' => $price,
+            'city' => $city,
+            'countryId' => $countryId,
         ];
 
         $response = $this->actingAs($this->admin)
@@ -121,6 +129,8 @@ class HousingControllerTest extends TestCase
             'description' => $description,
             'address' => $address,
             'price' => $price,
+            'city' => $city,
+            'country_id' => $countryId,
         ]);
     }
 
@@ -132,12 +142,16 @@ class HousingControllerTest extends TestCase
         $description = fake()->sentence;
         $address = fake()->address;
         $price = fake()->randomFloat(2, 10, 200);
+        $city = fake()->city;
+        $countryId = $this->country->id;
 
         $input = [
             'name' => $name,
             'description' => $description,
             'address' => $address,
             'price' => $price,
+            'city' => $city,
+            'countryId' => $countryId,
         ];
 
         $response = $this->actingAs($this->user)
@@ -154,12 +168,16 @@ class HousingControllerTest extends TestCase
         $description = fake()->sentence;
         $address = fake()->address;
         $price = fake()->randomFloat(2, 10, 200);
+        $city = fake()->city;
+        $countryId = $this->country->id;
 
         $input = [
             'name' => $name,
             'description' => $description,
             'address' => $address,
             'price' => $price,
+            'city' => $city,
+            'countryId' => $countryId,
         ];
 
         $response = $this->postJson('api/housings', $input);
@@ -174,12 +192,16 @@ class HousingControllerTest extends TestCase
         $description = fake()->sentence;
         $address = fake()->address;
         $price = fake()->randomFloat(2, 10, 200);
+        $city = fake()->city;
+        $countryId = $this->country->id;
 
         $input = [
             'name' => '',
             'description' => $description,
             'address' => $address,
             'price' => $price,
+            'city' => $city,
+            'countryId' => $countryId,
         ];
 
         $response = $this->actingAs($this->admin)
@@ -195,12 +217,16 @@ class HousingControllerTest extends TestCase
         $name = fake()->word;
         $address = fake()->address;
         $price = fake()->randomFloat(2, 10, 200);
+        $city = fake()->city;
+        $countryId = $this->country->id;
 
         $input = [
             'name' => $name,
             'description' => '',
             'address' => $address,
             'price' => $price,
+            'city' => $city,
+            'countryId' => $countryId,
         ];
 
         $response = $this->actingAs($this->admin)
@@ -212,6 +238,8 @@ class HousingControllerTest extends TestCase
             'description' => null,
             'address' => $address,
             'price' => $price,
+            'city' => $city,
+            'country_id' => $countryId,
         ]);
     }
 
@@ -222,12 +250,16 @@ class HousingControllerTest extends TestCase
         $name = fake()->word;
         $description = fake()->sentence;
         $price = fake()->randomFloat(2, 10, 200);
+        $city = fake()->city;
+        $countryId = $this->country->id;
 
         $input = [
             'name' => $name,
             'description' => $description,
             'address' => '',
             'price' => $price,
+            'city' => $city,
+            'countryId' => $countryId,
         ];
 
         $response = $this->actingAs($this->admin)
@@ -243,12 +275,91 @@ class HousingControllerTest extends TestCase
         $name = fake()->word;
         $description = fake()->sentence;
         $address = fake()->address;
+        $city = fake()->city;
+        $countryId = $this->country->id;
 
         $input = [
             'name' => $name,
             'description' => $description,
             'address' => $address,
             'price' => '',
+            'city' => $city,
+            'countryId' => $countryId,
+        ];
+
+        $response = $this->actingAs($this->admin)
+            ->postJson('api/housings', $input);
+
+        $response->assertStatus(422);
+    }
+
+    public function testAuthorizedAdminCannotCreateHousingWithoutCity(): void
+    {
+        $this->withExceptionHandling();
+
+        $name = fake()->word;
+        $description = fake()->sentence;
+        $address = fake()->address;
+        $price = fake()->randomFloat(2, 10, 200);
+        $countryId = $this->country->id;
+
+        $input = [
+            'name' => $name,
+            'description' => $description,
+            'address' => $address,
+            'price' => $price,
+            'city' => '',
+            'countryId' => $countryId,
+        ];
+
+        $response = $this->actingAs($this->admin)
+            ->postJson('api/housings', $input);
+
+        $response->assertStatus(422);
+    }
+
+    public function testAuthorizedAdminCannotCreateHousingWithoutCountry(): void
+    {
+        $this->withExceptionHandling();
+
+        $name = fake()->word;
+        $description = fake()->sentence;
+        $address = fake()->address;
+        $price = fake()->randomFloat(2, 10, 200);
+        $city = fake()->city;
+
+        $input = [
+            'name' => $name,
+            'description' => $description,
+            'address' => $address,
+            'price' => $price,
+            'city' => $city,
+            'countryId' => '',
+        ];
+
+        $response = $this->actingAs($this->admin)
+            ->postJson('api/housings', $input);
+
+        $response->assertStatus(422);
+    }
+
+    public function testAuthorizedAdminCannotCreateHousingWithInvalidCountryId(): void
+    {
+        $this->withExceptionHandling();
+
+        $name = fake()->word;
+        $description = fake()->sentence;
+        $address = fake()->address;
+        $price = fake()->randomFloat(2, 10, 200);
+        $city = fake()->city;
+
+        $input = [
+            'name' => $name,
+            'description' => $description,
+            'address' => $address,
+            'price' => $price,
+            'city' => $city,
+            'countryId' => 999999,
         ];
 
         $response = $this->actingAs($this->admin)
@@ -267,12 +378,16 @@ class HousingControllerTest extends TestCase
         $description = fake()->sentence;
         $address = fake()->address;
         $price = fake()->randomFloat(2, 10, 200);
+        $city = fake()->city;
+        $countryId = $this->country->id;
 
         $input = [
             'name' => $name,
             'description' => $description,
             'address' => $address,
             'price' => $price,
+            'city' => $city,
+            'countryId' => $countryId,
         ];
 
         $response = $this->actingAs($this->admin)
@@ -285,6 +400,8 @@ class HousingControllerTest extends TestCase
             'description' => $description,
             'address' => $address,
             'price' => $price,
+            'city' => $city,
+            'country_id' => $countryId,
         ]);
     }
 
@@ -298,12 +415,16 @@ class HousingControllerTest extends TestCase
         $description = fake()->sentence;
         $address = fake()->address;
         $price = fake()->randomFloat(2, 10, 200);
+        $city = fake()->city;
+        $countryId = $this->country->id;
 
         $input = [
             'name' => $name,
             'description' => $description,
             'address' => $address,
             'price' => $price,
+            'city' => $city,
+            'countryId' => $countryId,
         ];
 
         $response = $this->actingAs($this->user)
@@ -322,12 +443,16 @@ class HousingControllerTest extends TestCase
         $description = fake()->sentence;
         $address = fake()->address;
         $price = fake()->randomFloat(2, 10, 200);
+        $city = fake()->city;
+        $countryId = $this->country->id;
 
         $input = [
             'name' => $name,
             'description' => $description,
             'address' => $address,
             'price' => $price,
+            'city' => $city,
+            'countryId' => $countryId,
         ];
 
         $response = $this->putJson('api/housings/' . $housing->id, $input);
@@ -344,12 +469,16 @@ class HousingControllerTest extends TestCase
         $description = fake()->sentence;
         $address = fake()->address;
         $price = fake()->randomFloat(2, 10, 200);
+        $city = fake()->city;
+        $countryId = $this->country->id;
 
         $input = [
             'name' => '',
             'description' => $description,
             'address' => $address,
             'price' => $price,
+            'city' => $city,
+            'countryId' => $countryId,
         ];
 
         $response = $this->actingAs($this->admin)
@@ -367,12 +496,16 @@ class HousingControllerTest extends TestCase
         $name = fake()->word;
         $address = fake()->address;
         $price = fake()->randomFloat(2, 10, 200);
+        $city = fake()->city;
+        $countryId = $this->country->id;
 
         $input = [
             'name' => $name,
             'description' => '',
             'address' => $address,
             'price' => $price,
+            'city' => $city,
+            'countryId' => $countryId,
         ];
 
         $response = $this->actingAs($this->admin)
@@ -385,6 +518,8 @@ class HousingControllerTest extends TestCase
             'description' => null,
             'address' => $address,
             'price' => $price,
+            'city' => $city,
+            'country_id' => $countryId,
         ]);
     }
 
@@ -397,12 +532,16 @@ class HousingControllerTest extends TestCase
         $name = fake()->word;
         $description = fake()->sentence;
         $price = fake()->randomFloat(2, 10, 200);
+        $city = fake()->city;
+        $countryId = $this->country->id;
 
         $input = [
             'name' => $name,
             'description' => $description,
             'address' => '',
             'price' => $price,
+            'city' => $city,
+            'countryId' => $countryId,
         ];
 
         $response = $this->actingAs($this->admin)
@@ -420,12 +559,97 @@ class HousingControllerTest extends TestCase
         $name = fake()->word;
         $description = fake()->sentence;
         $address = fake()->address;
+        $city = fake()->city;
+        $countryId = $this->country->id;
 
         $input = [
             'name' => $name,
             'description' => $description,
             'address' => $address,
             'price' => '',
+            'city' => $city,
+            'countryId' => $countryId,
+        ];
+
+        $response = $this->actingAs($this->admin)
+            ->putJson('api/housings/' . $housing->id, $input);
+
+        $response->assertStatus(422);
+    }
+
+    public function testAuthorizedAdminCannotUpdateHousingWithoutCity(): void
+    {
+        $this->withExceptionHandling();
+
+        $housing = Housing::factory()->create();
+
+        $name = fake()->word;
+        $description = fake()->sentence;
+        $address = fake()->address;
+        $price = fake()->randomFloat(2, 10, 200);
+        $countryId = $this->country->id;
+
+        $input = [
+            'name' => $name,
+            'description' => $description,
+            'address' => $address,
+            'price' => $price,
+            'city' => '',
+            'countryId' => $countryId,
+        ];
+
+        $response = $this->actingAs($this->admin)
+            ->putJson('api/housings/' . $housing->id, $input);
+
+        $response->assertStatus(422);
+    }
+
+    public function testAuthorizedAdminCannotUpdateHousingWithoutCountry(): void
+    {
+        $this->withExceptionHandling();
+
+        $housing = Housing::factory()->create();
+
+        $name = fake()->word;
+        $description = fake()->sentence;
+        $address = fake()->address;
+        $price = fake()->randomFloat(2, 10, 200);
+        $city = fake()->city;
+
+        $input = [
+            'name' => $name,
+            'description' => $description,
+            'address' => $address,
+            'price' => $price,
+            'city' => $city,
+            'countryId' => '',
+        ];
+
+        $response = $this->actingAs($this->admin)
+            ->putJson('api/housings/' . $housing->id, $input);
+
+        $response->assertStatus(422);
+    }
+
+    public function testAuthorizedAdminCannotUpdateHousingWithInvalidCountryId(): void
+    {
+        $this->withExceptionHandling();
+
+        $housing = Housing::factory()->create();
+
+        $name = fake()->word;
+        $description = fake()->sentence;
+        $address = fake()->address;
+        $price = fake()->randomFloat(2, 10, 200);
+        $city = fake()->city;
+
+        $input = [
+            'name' => $name,
+            'description' => $description,
+            'address' => $address,
+            'price' => $price,
+            'city' => $city,
+            'countryId' => 999999,
         ];
 
         $response = $this->actingAs($this->admin)

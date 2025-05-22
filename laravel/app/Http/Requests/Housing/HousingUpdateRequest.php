@@ -11,6 +11,8 @@ class HousingUpdateRequest extends BaseRequest
         return [
             'name' => ['sometimes', 'required', 'string', 'max:255'],
             'description' => ['sometimes', 'nullable', 'string'],
+            'city' => ['sometimes', 'required', 'string', 'max:255'],
+            'countryId' => ['sometimes', 'required', 'exists:countries,id'],
             'address' => ['sometimes', 'required', 'string', 'max:255'],
             'price' => ['sometimes', 'required', 'numeric', 'min:0'],
         ];
