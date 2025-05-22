@@ -2,6 +2,6 @@
 
 return [
     'hosts' => [
-        env('OPENSEARCH_HOST', 'http://localhost:9200'),
+        env('OPENSEARCH_HOST', 'http://opensearch:9200'),
     ],
 ];
