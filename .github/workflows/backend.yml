@@ -50,7 +50,13 @@ jobs:
         run: make build
 
       - name: Start services
-        run: make up
+        run: |
+          make up
+          # Awaiting OpenSearch ready
+          until docker compose exec opensearch curl -s http://localhost:9200/_cluster/health | grep -q '"status":"green" | grep -q '"status":"yellow"'; do
+            echo "Waiting for OpenSearch to start..."
+            sleep 20
+          done
 
       - name: Wait for test database to be ready
         run: |
