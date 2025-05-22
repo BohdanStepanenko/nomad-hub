@@ -14,11 +14,11 @@ class CoworkingReviewsSeeder extends Seeder
      */
     public function run(): void
     {
-        $coworking = CoworkingSpace::where('name', 'Hubba Thailand')->first();
+        $coworking = CoworkingSpace::first();
         $user = User::first();
 
         if ($coworking && $user) {
-            CoworkingReview::create([
+            CoworkingReview::factory()->create([
                 'coworking_space_id' => $coworking->id,
                 'user_id' => $user->id,
                 'rating' => 4,
