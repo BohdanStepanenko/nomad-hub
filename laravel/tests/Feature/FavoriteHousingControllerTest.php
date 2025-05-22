@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\FavoriteHousing;
 use App\Models\Housing;
 use App\Models\User;
+use Database\Seeders\CountriesSeeder;
 use Database\Seeders\HousingsSeeder;
 use Database\Seeders\RolesSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -30,6 +31,7 @@ class FavoriteHousingControllerTest extends TestCase
         Notification::fake();
 
         $this->seed(RolesSeeder::class);
+        $this->seed(CountriesSeeder::class);
         $this->seed(HousingsSeeder::class);
 
         $this->user = User::factory()->create();

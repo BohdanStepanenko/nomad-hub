@@ -22,6 +22,8 @@ class HousingService
     public function store(
         string $name,
         ?string $description,
+        int $countryId,
+        string $city,
         string $address,
         float $price
     ): array {
@@ -31,6 +33,8 @@ class HousingService
             $housing = Housing::create([
                 'name' => $name,
                 'description' => $description,
+                'country_id' => $countryId,
+                'city' => $city,
                 'address' => $address,
                 'price' => $price,
             ]);
@@ -55,6 +59,8 @@ class HousingService
         Housing $housing,
         string $name,
         ?string $description,
+        int $countryId,
+        string $city,
         string $address,
         float $price
     ): Housing {
@@ -64,6 +70,8 @@ class HousingService
             $housing->update([
                 'name' => $name,
                 'description' => $description,
+                'country_id' => $countryId,
+                'city' => $city,
                 'address' => $address,
                 'price' => $price,
             ]);
@@ -90,6 +98,8 @@ class HousingService
 
         return match ($sortBy) {
             'name' => $query->orderBy('name', $sortDirection),
+            'countryId' => $query->orderBy('country_id', 'asc'),
+            'city' => $query->orderBy('city', $sortDirection),
             'price' => $query->orderBy('price', $sortDirection),
             'created_at' => $query->orderBy('created_at', $sortDirection),
             'updated_at' => $query->orderBy('updated_at', $sortDirection),

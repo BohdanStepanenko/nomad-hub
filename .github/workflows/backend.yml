@@ -52,6 +52,16 @@ jobs:
       - name: Start services
         run: make up
 
+      - name: Wait for OpenSearch to be ready
+        run: |
+          until curl -s http://localhost:9200/_cluster/health \
+            | grep -q '"status":"green"' \
+            || curl -s http://localhost:9200/_cluster/health \
+            | grep -q '"status":"yellow"'; do
+            echo "Waiting for OpenSearch on localhost:9200..."
+            sleep 10
+          done
+
       - name: Wait for test database to be ready
         run: |
           until docker compose exec test_db mysqladmin ping -h"127.0.0.1" -P3306 --silent; do

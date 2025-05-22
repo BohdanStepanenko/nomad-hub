@@ -10,7 +10,7 @@ class HousingRequest extends BaseRequest
     public function rules(): array
     {
         return [
-            'sortBy' => ['nullable', Rule::in(['name', 'price', 'created_at', 'updated_at'])],
+            'sortBy' => ['nullable', Rule::in(['name', 'coutnryId', 'city', 'price', 'created_at', 'updated_at'])],
             'sortDirection' => ['nullable', Rule::in(['asc', 'desc'])],
         ];
     }

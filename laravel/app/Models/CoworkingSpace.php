@@ -24,6 +24,25 @@ class CoworkingSpace extends Model
         'website',
     ];
 
+    protected $casts = [
+        'has_coffee' => 'boolean',
+        'is_24_7' => 'boolean',
+    ];
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'address' => $this->address,
+            'city' => $this->city,
+            'country_id' => $this->country_id,
+            'cost' => $this->cost,
+            'wifi_speed' => $this->wifi_speed,
+            'has_coffee' => $this->has_coffee,
+            'is_24_7' => $this->is_24_7,
+        ];
+    }
+
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);

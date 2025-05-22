@@ -14,6 +14,7 @@
         "laravel/socialite": "^5.17",
         "laravel/tinker": "^2.8",
         "league/flysystem-aws-s3-v3": "^3.0",
+        "opensearch-project/opensearch-php": "^2.4",
         "rakutentech/laravel-request-docs": "^2.41",
         "socialiteproviders/discord": "^4.2",
         "spatie/laravel-permission": "^6.13"

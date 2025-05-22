@@ -6,9 +6,9 @@ use App\Models\Country;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Housing>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CoworkingSpace>
  */
-class HousingFactory extends Factory
+class CoworkingSpaceFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,11 +21,15 @@ class HousingFactory extends Factory
 
         return [
             'name' => fake()->word,
-            'description' => fake()->text,
             'country_id' => fake()->randomElement($countries),
             'city' => fake()->city,
             'address' => fake()->address,
-            'price' => fake()->randomFloat(2, 100, 1000),
+            'hours' => '9:00-18:00',
+            'cost' => fake()->randomFloat(2, 10, 100),
+            'wifi_speed' => '100 Mbps',
+            'has_coffee' => fake()->boolean,
+            'is_24_7' => fake()->boolean,
+            'website' => fake()->url,
         ];
     }
 }
